@@ -1,0 +1,5 @@
+Simple game for teaching verctors, velocity and acceleration.
+
+* Tasks [0/2]
+  - [ ] Draw an arrow.
+  - [ ] Allow input.
