@@ -8,3 +8,11 @@ Avoid obstacles or you'll crash.
 Getting out of the field will make you lose too.
 
 Get to the goal in the least amount of turns.
+
+* Usage
+
+#+begin_src sh
+  pipenv install
+  pipenv shell
+  python game.py
+#+end_src
