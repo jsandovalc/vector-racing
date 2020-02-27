@@ -306,6 +306,12 @@ class VectorRacing(arcade.Window):
 
         self.winner = False
 
+        # The racing track is just a list of lines
+        self.racing_track = [
+            Line(Point(x=26, y=4), Point(x=26, y=8)),
+            Line(Point(x=26, y=8), Point(x=19, y=12))
+        ]
+
     def setup(self):
         self.button_list = [
             ChangeSpeedButton(to_grid(2) + 1 * WIDTH // 6,
@@ -343,10 +349,17 @@ class VectorRacing(arcade.Window):
         if intersect(GOAL_LINE.p1, GOAL_LINE.p2, new_vector.p1, new_vector.p2):
             self.winner = True
 
+        for line in self.racing_track:
+            if intersect(line.p1, line.p2, new_vector.p1, new_vector.p2):
+                self.game_over = True
+                self.winner = False
+                break
+
         self.tip = new_tip
 
         if self.out_of_grid():
             self.game_over = True
+            self.winner = False
 
     def out_of_grid(self):
         if self.tip.x > X_LENGTH:
@@ -370,7 +383,7 @@ class VectorRacing(arcade.Window):
 
     def draw_winner(self):
         """
-        Draw "winer" across the screen.
+        Draw "¡You win!" across the screen.
         """
         output = "¡You win!"
         arcade.draw_text(output, to_grid((X_LENGTH - 8) // 2),
@@ -455,6 +468,9 @@ class VectorRacing(arcade.Window):
 
         for line in self.lines:
             draw_line(Line(p1=line.p1, p2=line.p2))
+
+        for track_line in self.racing_track:
+            draw_line(track_line)
 
         if self.winner:
             self.draw_winner()
